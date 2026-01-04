@@ -18,10 +18,11 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        val apiToken = project.properties["TMDB_API_ACCESS_TOKEN"] as String? ?: ""
         buildConfigField(
             "String",
             "TMDB_API_ACCESS_TOKEN",
-            "\"${project.properties["TMDB_API_ACCESS_TOKEN"]}\""
+            "\"$apiToken\""
         )
 
     }
@@ -60,11 +61,16 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material.icons.extended)
     // ViewModel
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.lifecycle.viewmodel.compose)
     // Coroutines
     implementation(libs.kotlinx.coroutines.android)
+    
+    // Image Loading
+    implementation(libs.coil.compose)
+    
     // Networking - Retrofit
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
