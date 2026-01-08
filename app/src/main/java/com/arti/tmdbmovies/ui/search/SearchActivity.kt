@@ -9,6 +9,8 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.arti.tmdbmovies.ui.details.MovieDetailsActivity
 import com.arti.tmdbmovies.ui.theme.TMDBMoviesTheme
@@ -27,8 +29,12 @@ class SearchActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    val uiState by viewModel.uiState.collectAsState()
                     SearchScreen(
-                        viewModel = viewModel,
+                        uiState = uiState,
+                        onSearchQueryChanged = { query ->
+                            viewModel.onSearchQueryChanged(query)
+                        },
                         onMovieClick = { movieId ->
                             navigateToMovieDetails(movieId)
                         }

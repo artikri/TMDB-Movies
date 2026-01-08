@@ -10,8 +10,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -20,11 +18,11 @@ import com.arti.tmdbmovies.ui.components.MovieCard
 
 @Composable
 fun SearchScreen(
-    viewModel: SearchViewModel,
+    uiState: SearchUiState,
+    onSearchQueryChanged: (String) -> Unit,
     onMovieClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val uiState by viewModel.uiState.collectAsState()
     
     Scaffold(modifier = modifier.fillMaxSize()) { paddingValues ->
         Column(
@@ -41,7 +39,7 @@ fun SearchScreen(
             
             OutlinedTextField(
                 value = uiState.searchQuery,
-                onValueChange = { viewModel.onSearchQueryChanged(it) },
+                onValueChange = onSearchQueryChanged,
                 label = { Text("Search") },
                 modifier = Modifier
                     .fillMaxWidth()

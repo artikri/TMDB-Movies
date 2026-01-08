@@ -21,8 +21,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -32,13 +30,12 @@ import com.arti.tmdbmovies.ui.components.MovieCard
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel,
+    uiState: HomeUiState,
     onMovieClick: (Int) -> Unit,
     onSearchClick: () -> Unit,
     onBookmarksClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val uiState by viewModel.uiState.collectAsState()
     
     Scaffold(
         modifier = modifier.fillMaxSize(),

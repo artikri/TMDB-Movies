@@ -10,6 +10,8 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.arti.tmdbmovies.ui.theme.TMDBMoviesTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,8 +33,9 @@ class MovieDetailsActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    val uiState by viewModel.uiState.collectAsState()
                     MovieDetailsScreen(
-                        viewModel = viewModel,
+                        uiState = uiState,
                         onBookmarkClick = { viewModel.toggleBookmark(movieId) },
                         onShareClick = { shareMovie(movieId) }
                     )
